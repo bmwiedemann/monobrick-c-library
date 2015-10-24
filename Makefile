@@ -1,4 +1,9 @@
-CFLAGS=-I.
+CXXFLAGS=-I.
+CPPS=$(shell echo *.cpp)
+OBJS=$(patsubst %.cpp,%.o,$(CPPS))
 
-all: motor.o sensor.o
+all: objs
+	echo ${CPPS}
+
+objs: ${OBJS}
 
