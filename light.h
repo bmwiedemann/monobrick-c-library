@@ -1,6 +1,6 @@
 #ifndef LIGHT_SENSOR_H
 #define LIGHT_SENSOR_H
-#include "Sensor.h"
+#include "sensor.h"
 #include "connection.h"
 
 

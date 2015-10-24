@@ -1,6 +1,6 @@
 #ifndef GYRO_SENSOR
 #define GYRO_SENSOR
-#include "Sensor.h"
+#include "sensor.h"
 #include "connection.h"
 
 using namespace std;

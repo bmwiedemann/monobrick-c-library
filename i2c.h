@@ -2,7 +2,7 @@
 #define I2C_CLASS
 #define I2C_BUFFER_SIZE 24
 #define TIMEOUT 500
-#include "Sensor.h"
+#include "sensor.h"
 #include "connection.h"
 
 using namespace std;

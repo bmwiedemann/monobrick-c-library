@@ -1,6 +1,6 @@
 #ifndef SOUND_SENSOR_H
 #define SOUND_SENSOR_H
-#include "Sensor.h"
+#include "sensor.h"
 #include "connection.h"
 
 

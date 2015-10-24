@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "connection.h"
-#include "I2C.h"
+#include "i2c.h"
 
 /**
 * Class to retrieve ADC port reading from the the PCF8591 ADC chip/sensor

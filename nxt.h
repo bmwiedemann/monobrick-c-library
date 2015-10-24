@@ -24,7 +24,7 @@
   #include "sonar.h"
   #include "compass.h"
   #include "color.h"
-  #include "IO_8574.h"
+  #include "io_8574.h"
   #include "adc_8591.h"
   #include "tilt.h"
 

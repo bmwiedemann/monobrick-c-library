@@ -1,6 +1,6 @@
 #ifndef TEMPERATURE_SENSOR_H
 #define TEMPERATURE_SENSOR_H
-#include "Sensor.h"
+#include "sensor.h"
 #include "connection.h"
 
 

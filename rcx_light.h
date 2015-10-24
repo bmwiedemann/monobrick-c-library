@@ -1,6 +1,6 @@
 #ifndef RCX_LIGHT_SENSOR_H
 #define RCX_LIGHT_SENSOR_H
-#include "Sensor.h"
+#include "sensor.h"
 #include "connection.h"
 
 using namespace std;

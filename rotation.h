@@ -1,6 +1,6 @@
 #ifndef ROTATION_SENSOR_H
 #define ROTATION_SENSOR_H
-#include "Sensor.h"
+#include "sensor.h"
 #include "connection.h"
 
 using namespace std;

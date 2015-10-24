@@ -1,6 +1,6 @@
 #ifndef TOUCH_SENSOR_H
 #define TOUCH_SENSOR_H
-#include "Sensor.h"
+#include "sensor.h"
 #include "connection.h"
 
 using namespace std;

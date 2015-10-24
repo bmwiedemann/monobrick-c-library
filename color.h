@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "connection.h"
-#include "I2C.h"
+#include "i2c.h"
 
 //registers
 #define COLOR_ADDRESS 0x02

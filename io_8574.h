@@ -2,7 +2,7 @@
 #define  IO_PCF8591
 #include <iostream>
 #include <string>
-#include "I2C.h"
+#include "i2c.h"
 #include "connection.h"
 
 using namespace std;
