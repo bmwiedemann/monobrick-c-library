@@ -20,11 +20,7 @@ void Bluetooth::send(unsigned char *buffer, unsigned int num_bytes){
     byte[i]=buffer[i];
     i++;
   }
-  if(!WriteFile(handle, byte, num_bytes, &number_bytes, NULL)!=0){
-    free(byte);
-    throw Nxt_exception("send","Bluetooth", BT_ERROR_WRITING_COM_PORT);
-  }
-  if(number_bytes!= num_bytes){
+  if(fwrite(byte, 1, num_bytes, handle)!=num_bytes){
     free(byte);
     throw Nxt_exception("send","Bluetooth", BT_ERROR_WRITING_COM_PORT);
   }
@@ -39,7 +35,7 @@ void Bluetooth::connect(unsigned int comport){
   std::stringstream temp;
   temp << comport;
   string port = "\\\\.\\COM" + temp.str();
-  handle = CreateFile(port.c_str(), GENERIC_READ | GENERIC_WRITE, 0,0,OPEN_EXISTING,0,0);
+  handle = fopen(port.c_str(), "rw");
   if (handle == INVALID_HANDLE_VALUE){
     throw Nxt_exception("connect","Bluetooth", BT_INVALID_COM_PORT);
   }
@@ -92,11 +88,11 @@ void Bluetooth::receive(unsigned char *buffer, unsigned int length){
   byte = (BYTE *) malloc(length*sizeof(BYTE));
   number_bytes=0;
   buffer[0]='\0';
-  if(ReadFile(handle, byte, length, &number_bytes, NULL) == 0){
+  if((number_bytes=fread(byte, 1, length, handle)) != 0){
     free(byte);
     throw Nxt_exception("receive","Bluetooth", BT_ERROR_READING_COM_PORT);
   }
-  //printf("Reveive length %d No of bytes %d\n",length, nrBytes);
+  //printf("Receive length %d No of bytes %d\n",length, nrBytes);
   if(number_bytes==0 && length != 0){
     free(byte);
     throw Nxt_exception("receive","Bluetooth", BT_NO_REPLY);
@@ -119,7 +115,7 @@ void Bluetooth::receive(unsigned char *buffer, unsigned int length){
 }
 
 void Bluetooth::flush(){
-  PurgeComm(handle, PURGE_RXCLEAR|PURGE_TXCLEAR);
+  fflush(handle);
 }
 
 Connection_type Bluetooth::get_type(){
