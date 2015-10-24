@@ -34,7 +34,7 @@ void Bluetooth::connect(unsigned int comport){
   ***************************************************************************/
   std::stringstream temp;
   temp << comport;
-  string port = "\\\\.\\COM" + temp.str();
+  string port = "/dev/rfcomm" + temp.str();
   handle = fopen(port.c_str(), "rw");
   if (handle == INVALID_HANDLE_VALUE){
     throw Nxt_exception("connect","Bluetooth", BT_INVALID_COM_PORT);
