@@ -1,7 +1,7 @@
 #include <cstdlib>  
 #include <iostream>  
 #include <string>  
-#include <conio.h>  
+//#include <conio.h>
 #include "nxt.h"  
   
 using namespace std;  
@@ -18,7 +18,7 @@ int main()
     cout << "Connected" << endl;  
     //connection->connect(1500, "192.168.0.1"); //Network connection  
     cout << "Press touch sensor - hit any key to end" << endl;  
-    while(!_kbhit()){//hit a key to end  
+    while(getchar()){//hit a key to end
       if(sensor1->read()){  
 	motorB->on(75);  
       }  
