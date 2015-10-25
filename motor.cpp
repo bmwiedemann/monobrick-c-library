@@ -20,8 +20,6 @@ Motor::Motor(Motor_port port, Connection *connection){
 void Motor::get_output_state(){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[5];
-  command[0]=0x03;  //command length
-  command[1]=0x00;
 
   //start of message
   command[2]=0x00;
@@ -52,8 +50,6 @@ void Motor::get_output_state(){
 void Motor::set_output_state(char set_speed, unsigned char set_mode, unsigned char set_regulation, char set_turn_ratio, unsigned char set_run_state, unsigned int set_tacho_limit, bool reply){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[15];
-  command[0]=13;  //command length
-  command[1]=0x00;
 
   //start of message
   if(reply){
@@ -89,8 +85,6 @@ void Motor::set_output_state(char set_speed, unsigned char set_mode, unsigned ch
 void Motor::reset(bool relative, bool reply){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[6];
-  command[0]=0x04;  //command length
-  command[1]=0x00;
 
   //start of message
   if(reply){

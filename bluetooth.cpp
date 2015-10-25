@@ -1,5 +1,6 @@
 #include "bluetooth.h"
 #include <stdlib.h>
+#include <string.h>
 #include "error.h"
 
 Bluetooth::Bluetooth(){
@@ -12,14 +13,14 @@ Bluetooth::~Bluetooth(){
 
 void Bluetooth::send(unsigned char *buffer, unsigned int num_bytes){
   unsigned int i=0;
+  int datalen=num_bytes-2;
   if (handle == INVALID_HANDLE_VALUE){
     throw Nxt_exception("send","Bluetooth", BT_INVALID_COM_PORT);
   }
   byte = (BYTE *) malloc(num_bytes*sizeof(BYTE));
-  while(i<num_bytes){
-    byte[i]=buffer[i];
-    i++;
-  }
+  memcpy(byte, buffer, num_bytes);
+  byte[0]=datalen&0xff;
+  byte[1]=(datalen>>8);
   if(fwrite(byte, 1, num_bytes, handle)!=num_bytes){
     free(byte);
     throw Nxt_exception("send","Bluetooth", BT_ERROR_WRITING_COM_PORT);
@@ -57,9 +58,6 @@ void Bluetooth::connect(unsigned int comport){
   //Try to read firmware check if a NXT is at the other end
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[4];
-  command[0]=0x02;  //command length
-  command[1]=0x00;
-
   command[2]=0x01;
   command[3]=0x88;
   try{

@@ -64,8 +64,6 @@ void Filesystem::delete_file(string file_name, bool reply){
     file_name.erase(MAX_NAME_LENGTH+1);
     name_length=MAX_NAME_LENGTH;
   }
-  command[0]=0x16;  //command length
-  command[1]=0x00;
   if(reply){
     command[2]=0x01;
   }
@@ -139,8 +137,6 @@ int Filesystem::get_first(string wild_card, Nxt_file *file){
     wild_card.erase(MAX_NAME_LENGTH+1);
     name_length=MAX_NAME_LENGTH;
   }
-  command[0]=0x16;  //command length
-  command[1]=0x00;
   command[2]=0x01;
   command[3]=0x86;
   while(i<name_length){
@@ -188,8 +184,6 @@ int Filesystem::get_next(int handle, Nxt_file *file){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[5];
   unsigned int i=0;
-  command[0] = 0x03;
-  command[1] = 0x00;
   command[2] = 0x01;
   command[3] = 0x87;
   command[4] = handle;
@@ -284,8 +278,6 @@ Nxt_file Filesystem::open_read(string file_name){
     file_name.erase(MAX_NAME_LENGTH+1);
     name_length=MAX_NAME_LENGTH;
   }
-  command[0]=0x16;  //command length
-  command[1]=0x00;
   command[2]=0x01;
   command[3]=0x80;
   while(i<name_length){
@@ -322,8 +314,6 @@ Nxt_file Filesystem::open_append(string file_name){
     file_name.erase(MAX_NAME_LENGTH+1);
     name_length=MAX_NAME_LENGTH;
   }
-  command[0]=0x16;  //command length
-  command[1]=0x00;
   command[2]=0x01;
   command[3]=0x8C;
   while(i<name_length){
@@ -360,8 +350,6 @@ Nxt_file Filesystem::open_write(string file_name, unsigned int file_size, char t
     file_name.erase(MAX_NAME_LENGTH+1);
     name_length=MAX_NAME_LENGTH;
   }
-  command[0]=0x1A;  //command length
-  command[1]=0x00;
   command[2]=0x01;
   command[3]=type;
   while(i<name_length){
@@ -394,8 +382,6 @@ Nxt_file Filesystem::open_write(string file_name, unsigned int file_size, char t
 void Filesystem::close_file(Nxt_file &file){
   unsigned char command[5];
   unsigned char answer[NXT_BUFFER_SIZE];
-  command[0]=0x03;  //command length
-  command[1]=0x00;
   command[2]=0x01;
   command[3]=0x84;
   command[4]= file.handle;
@@ -431,8 +417,6 @@ unsigned short int Filesystem::read_command(Nxt_file &file, unsigned char *buffe
   unsigned char command[7];
   unsigned char *answer = (unsigned char *) malloc((num_bytes*sizeof(unsigned char))+8);
   unsigned short int bytes_to_read,i;
-  command[0]=0x05;  //command length
-  command[1]=0x00;
   command[2]=0x01;
   command[3]=0x82;
   command[4]= file.handle;
@@ -482,8 +466,6 @@ unsigned short int Filesystem::write_command(Nxt_file &file, unsigned char *buff
   }
   bytes_to_write = num_bytes + 3;
   unsigned char *command = (unsigned char *) malloc ( (num_bytes*sizeof(unsigned char))+5);
-  command[0]= bytes_to_write & 0xff;  //command length
-  command[1]= (bytes_to_write >> 8) & 0xff;
   command[2]=0x01;
   command[3]=0x83;
   command[4]= file.handle;
@@ -536,8 +518,6 @@ void Filesystem::delete_file(Nxt_file &file, bool reply){
 void Filesystem::delete_flash(){
   unsigned char command[4];
   unsigned char answer[NXT_BUFFER_SIZE];
-  command[0]=0x02;  //command length
-  command[1]=0x00;
   command[2]=0x01;
   command[3]=0xA0;
 

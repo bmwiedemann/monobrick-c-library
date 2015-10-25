@@ -21,8 +21,6 @@ void Brick::write_msg(string message, int inbox, bool reply){
   if(length>57){
      length = 57;
   }
-  command[0]=length+5;  //command length
-  command[1]=0x00;
   if(reply){
     command[2]=0x00;
   }
@@ -54,8 +52,6 @@ string Brick::read_msg(int inbox, bool remove){
   unsigned int i;
   unsigned char answer[NXT_BUFFER_SIZE+2];
   unsigned char command[7];
-  command[0]=0x05;  //command length
-  command[1]=0x00;
 
   command[2]=0x00;
   command[3]=0x13;
@@ -87,8 +83,6 @@ void Brick::set_name(string name, bool reply){
   if(length>15){
     length=15;
   }
-  command[0]=length+3;  //command length
-  command[1]=0x00;
 
   //start of message
   if(reply){
@@ -117,8 +111,6 @@ void Brick::get_device_info(Device_info &info){
   unsigned int i;
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[4];
-  command[0] = 0x02;
-  command[1] = 0x00;
   command[2] = 0x01;
   command[3] = 0x9b;
   connection->send(&command[0],4);
@@ -153,8 +145,6 @@ string Brick::get_name(){
 void Brick::keep_alive(bool reply){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[4];
-  command[0]=0x02;  //command length
-  command[1]=0x00;
   if(reply){
     command[2]=0x00;
   }
@@ -175,8 +165,6 @@ void Brick::keep_alive(bool reply){
 void Brick::play_tone(unsigned int freq, unsigned int time, bool reply){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[8];
-  command[0]=0x06;  //command length
-  command[1]=0x00;
   if(reply){
     command[2]=0x00;
   }
@@ -210,8 +198,6 @@ void Brick::play_soundfile(string file, bool loop, bool reply){
   if(length>19){
     length=19;
   }
-  command[0]=length+4;  //command length
-  command[1]=0x00;
   //start of message
   if(reply){
     command[2]=0x00;
@@ -238,8 +224,6 @@ void Brick::play_soundfile(string file, bool loop, bool reply){
 void Brick::stop_soundplayback(bool reply){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[4];
-  command[0]=0x02;  //command length
-  command[1]=0x00;
   if(reply){
     command[2]=0x00;
   }
@@ -265,8 +249,6 @@ void Brick::start_program(string file, bool reply){
   if(length>19){
     length=19;
   }
-  command[0]=length+3;  //command length
-  command[1]=0x00;
   //start of message
   if(reply){
     command[2]=0x00;
@@ -292,8 +274,6 @@ void Brick::start_program(string file, bool reply){
 void Brick::stop_programs(bool reply){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[4];
-  command[0]=0x02;  //command length
-  command[1]=0x00;
   if(reply){
     command[2]=0x00;
   }
@@ -316,8 +296,6 @@ string Brick::get_current_program(){
   unsigned char command[4];
   string temp;
   unsigned int i;
-  command[0]=0x02;
-  command[1]=0;
   command[2]=0x00;
   command[3]=0x11;
   connection->send(&command[0],4);
@@ -343,8 +321,6 @@ string Brick::get_bt_address(){
 void Brick::get_device_version(Device_version &version){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[4];
-  command[0]=0x02;  //command length
-  command[1]=0x00;
 
   command[2]=0x01;
   command[3]=0x88;
@@ -384,8 +360,6 @@ unsigned int Brick::get_battery_level(){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[4];
   int mvolt;
-  command[0]=0x02;  //command length
-  command[1]=0x00;
 
   command[2]=0x00;
   command[3]=0x0B;
@@ -418,8 +392,6 @@ unsigned int Brick::get_battery_level(){
     void Brick::delete_flash(bool reply){
       char answer[NXT_BUFFER_SIZE];
       char command[4];
-      command[0] = 0x02;
-      command[1] = 0x00;
       if(reply){
         command[2]=0x01;
       }
@@ -477,8 +449,6 @@ unsigned int Brick::get_battery_level(){
         file_name.erase(MAX_NAME_LENGTH+1);
         name_length=MAX_NAME_LENGTH;
       }
-      command[0]=0x16;  //command length
-      command[1]=0x00;
       if(reply){
         command[2]=0x01;
       }
@@ -551,8 +521,6 @@ int Brick::get_first(string wild_card, file_info *info){
     wild_card.erase(MAX_NAME_LENGTH+1);
     name_length=MAX_NAME_LENGTH;
   }
-  command[0]=0x16;  //command length
-  command[1]=0x00;
   command[2]=0x01;
   command[3]=0x86;
   while(i<name_length){
@@ -581,8 +549,6 @@ int Brick::get_first(string wild_card, file_info *info){
   }
   info->size = (0xFF & answer[26]) | ((0xFF & answer[27]) << 8)| ((0xFF & answer[28]) << 16)| ((0xFF & answer[29]) << 24);
   //close the handle
-  command[0] = 0x03;
-  command[1] = 0x00;
   command[2] = 0x01;
   command[3] = 0x84;
   command[4] = answer[5];
@@ -600,8 +566,6 @@ int Brick::get_next(int handle, file_info *info){
   char answer[NXT_BUFFER_SIZE];
   char command[5];
   unsigned int i=0;
-  command[0] = 0x03;
-  command[1] = 0x00;
   command[2] = 0x01;
   command[3] = 0x87;
   command[4] = handle;
@@ -623,8 +587,6 @@ int Brick::get_next(int handle, file_info *info){
   }
   info->size = (0xFF & answer[26]) | ((0xFF & answer[27]) << 8)| ((0xFF & answer[28]) << 16)| ((0xFF & answer[29]) << 24);
   //close the handle
-  command[0] = 0x03;
-  command[1] = 0x00;
   command[2] = 0x01;
   command[3] = 0x84;
   command[4] = answer[5];

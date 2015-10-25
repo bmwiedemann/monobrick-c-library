@@ -32,8 +32,6 @@ void I2c::i2c_write(unsigned char *tx_buf, int tx_length, int rx_length){
     i++;
     //printf("i=%d\n",i);
   }
-  command[0]=i+5;
-  command[1]=0x00;
   command[2]=0x80;
   command[3]=0x0F;
   command[4]=sensor_port;
@@ -46,8 +44,6 @@ void I2c::i2c_read(unsigned char* rx_buffer, int rx_length){
   int i;
   unsigned char command[5];
   wait_for_bytes(rx_length);
-  command[0]=0x03;
-  command[1]=0x00;
   command[2]=0x00;
   command[3]=0x10;
   command[4]=sensor_port;
@@ -80,8 +76,6 @@ void I2c::wait_for_bytes(int num_bytes){
 void I2c::update_sensor_status(){
   unsigned char command[5];
   unsigned char answer[NXT_BUFFER_SIZE];
-  command[0]=0x03;
-  command[1]=0x00;
 
   command[2]=0x00;
   command[3]=0x0E;

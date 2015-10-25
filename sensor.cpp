@@ -85,8 +85,6 @@ Sensor_mode Sensor::get_mode(){
 void Sensor::set_type_and_mode(Sensor_type type, Sensor_mode mode,bool reply){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[7];
-  command[0]=0x05;  //command length
-  command[1]=0x00;
 
   //start of message
   if(reply){
@@ -114,8 +112,6 @@ void Sensor::get_sensor_value(){
   }
   unsigned char command[5];
   unsigned char answer[NXT_BUFFER_SIZE];
-  command[0]=0x03;
-  command[1]=0x00;
 
   command[2]=0x00;
   command[3]=0x07;
@@ -161,8 +157,6 @@ Sensor_type Sensor::get_type(){
 void Sensor::reset(bool reply){
   unsigned char answer[NXT_BUFFER_SIZE];
   unsigned char command[5];
-  command[0]=0x03;  //command length
-  command[1]=0x00;
 
   //start of message
   if(reply){
