@@ -1,3 +1,6 @@
+#ifndef included_windows_h
+#define included_windows_h
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -63,3 +66,4 @@ typedef struct tagCOMMTIMEOUTS {
 #define SetCommTimeouts(h,t) /*FIXME*/
 #define SetCommState(h,dcb)  /*FIXME*/
 
+#endif
